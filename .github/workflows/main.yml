@@ -18,6 +18,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
+
+      - name: debug
+        run: echo $REGISTRY
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -37,4 +42,4 @@ jobs:
           cache-to: type=gha,mode=max
           push: true
           file: Dockerfile
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}:latest,${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}:${GITHUB_REF:11}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}:latest,${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}:${{ env.RELEASE_VERSION }}
