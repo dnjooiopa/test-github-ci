@@ -8,7 +8,7 @@ on:
 env:
   REGISTRY: ghcr.io/dnjooiopa
   RABBITMQ_IMAGE_NAME: rabbitmqtt
-  TIMESCALE_IMAGE_NAME: timescaledb
+  TIMESCALE_IMAGE_NAME: timescale-test
 
 jobs:
   release:
@@ -43,7 +43,7 @@ jobs:
           context: ./rabbitmq
           file: ./rabbitmq/Dockerfile
           tags: ${{ env.REGISTRY }}/${{ env.RABBITMQ_IMAGE_NAME}}:latest,${{ env.REGISTRY }}/${{ env.RABBITMQ_IMAGE_NAME}}:${{ env.RELEASE_VERSION }}
-      - name: Build timescaledb image
+      - name: Build timescale-test image
         uses: docker/build-push-action@v2
         with:
           platforms: linux/amd64,linux/arm64
